@@ -9,7 +9,7 @@ resource "pingone_application" "postman" {
 
   name        = var.application_name
   description = var.application_description
-  enabled     = true
+  enabled     = var.enable_by_default
 
   hidden_from_app_portal = false
 
@@ -47,5 +47,11 @@ resource "pingone_application" "postman" {
     refresh_token_duration                      = 2592000
     refresh_token_rolling_duration              = 15552000
     refresh_token_rolling_grace_period_duration = 0
+  }
+
+  lifecycle {
+    ignore_changes = [
+       enabled,
+    ]
   }
 }
